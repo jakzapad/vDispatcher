@@ -43,6 +43,7 @@ namespace vDispatcher
             this.description = "[PRZETERMINOWANY]" + this.description;
             incTimer.Stop();
             incTimer = null;
+            
         }
 
     }

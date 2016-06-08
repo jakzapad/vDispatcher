@@ -111,7 +111,7 @@ namespace vDispatcher
 
             else
             {
-                incDescTextBlock.Text = "ducpa";
+                MessageBox.Show("Za malo czasu");
             }
             
 
