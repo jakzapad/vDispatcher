@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace vDispatcher
@@ -17,16 +13,18 @@ namespace vDispatcher
         public string description { get; set; }
         public Random randTimeInc { get; set; }
         public int timeInc { get; set; }
-        public DispatcherTimer incTimer { get; set; } 
+        public DispatcherTimer incTimer { get; set; }
+        public int endTimer { get; set; }
 
-        public Incident(IncType rodzajInc, int iloscRannych, int iloscZabitych, string opis, DispatcherTimer incTimer)
+        public Incident(IncType incType, int woundedNumber, int deadNumber, 
+            string description, DispatcherTimer incTimer)
         {
-            this.incType = rodzajInc;
-            this.woundedNumber = iloscRannych;
-            this.deadNumber = iloscZabitych;
-            this.description = opis;
-            this.randTimeInc = new Random(); //incTimer OK, startIncTimer OK, randTimeInc NOK, timeInc NOK
-            this.timeInc = randTimeInc.Next(2, 5);
+            this.incType = incType;
+            this.woundedNumber = woundedNumber;
+            this.deadNumber = deadNumber;
+            this.description = description;
+            this.randTimeInc = new Random();
+            this.timeInc = randTimeInc.Next(100, 300);
             this.incTimer = incTimer;
             startIncTimer(this.timeInc, this.incTimer);            
         }
@@ -34,8 +32,9 @@ namespace vDispatcher
         public void startIncTimer(int timeInc, DispatcherTimer incTimer)
         {
             incTimer.Tick += incTimer_Tick;
-            incTimer.Interval = new TimeSpan(0, 0, 100);//zmiana interawalu timeInc
-            incTimer.Start();            
+            incTimer.Interval = new TimeSpan(0, 0, timeInc);
+            endTimer = timeInc;
+            incTimer.Start();
         }
 
         private void incTimer_Tick(object sender, EventArgs e)
@@ -43,8 +42,6 @@ namespace vDispatcher
             this.description = "[PRZETERMINOWANY]" + this.description;
             incTimer.Stop();
             incTimer = null;
-            
         }
-
     }
 }

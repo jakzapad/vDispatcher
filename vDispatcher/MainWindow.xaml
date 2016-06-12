@@ -6,30 +6,161 @@
         xmlns:local="clr-namespace:vDispatcher"
         mc:Ignorable="d"
         Title="vDispatcher" 
-        Height="613" Width="913" 
+        Height="640" Width="913"
         WindowStartupLocation="Manual"
         Top="10">
-    <Grid>
-        <Button x:Name="button" Content="Dispatch!" HorizontalAlignment="Left" Margin="10,552,0,0" VerticalAlignment="Top" Width="885" RenderTransformOrigin="0.1,3.191" Click="button_Click"/>
-        <GroupBox x:Name="groupBox" Header="Incydenty" HorizontalAlignment="Left" Height="298" Margin="10,10,0,0" VerticalAlignment="Top" Width="885">
-            <Grid HorizontalAlignment="Left" Height="288" Margin="0,0,-2,-12" VerticalAlignment="Top" Width="875">
-                <ListBox x:Name="listBoxInc" HorizontalAlignment="Left" Height="268" Margin="10,10,0,0" VerticalAlignment="Top" Width="339" SelectionChanged="listBoxInc_SelectionChanged" IsSynchronizedWithCurrentItem="True"/>
-                <TextBlock x:Name="incDescTextBlock" HorizontalAlignment="Left" Margin="373,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="242" Width="492"/>
-                <Label x:Name="incDescLabel" Content="Opis Incydentu" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top"/>
+    <StackPanel>       
+        <GroupBox x:Name="groupBox" 
+                  Header="Incydenty" 
+                  HorizontalAlignment="Stretch" 
+                  Margin="10,10,10,0" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <ListView x:Name="listBoxInc" 
+                         Grid.Column="0" 
+                         HorizontalAlignment="Stretch" 
+                         Height="290" Margin="10,10,5,5" 
+                         SelectionChanged="listBoxInc_SelectionChanged" 
+                         IsSynchronizedWithCurrentItem="True"
+                          ItemsSource="{Binding actualInc}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Typ" DisplayMemberBinding="{Binding incType}"/>
+                            <GridViewColumn Header="Opis" DisplayMemberBinding="{Binding description}"/>                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel Grid.Column="1">
+                    <Label x:Name="incDescLabel" 
+                           Content="Opis Incydentu" 
+                           HorizontalAlignment="Left" 
+                           Margin="5,10,0,0" 
+                           VerticalAlignment="Top"/>
+                    <TextBlock x:Name="incDescTextBlock" 
+                               HorizontalAlignment="Stretch" 
+                               Height="250" 
+                               Margin="15,5,5,5" 
+                               TextWrapping="Wrap"/>                    
+                </StackPanel>               
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="groupBox1" Header="Służby" HorizontalAlignment="Left" Margin="10,313,0,0" VerticalAlignment="Top" Height="234" Width="885">
-            <Grid HorizontalAlignment="Left" Height="224" VerticalAlignment="Top" Width="875" Margin="0,0,-2,-12">
-                <ListBox x:Name="listBoxPolice" HorizontalAlignment="Left" Height="138" Margin="10,37,0,0" VerticalAlignment="Top" Width="122" SelectionChanged="listBoxPolice_SelectionChanged"/>
-                <ListBox x:Name="listBoxFireBrigade" HorizontalAlignment="Left" Height="138" Margin="294,37,0,0" VerticalAlignment="Top" Width="122" SelectionChanged="listBoxFireBrigade_SelectionChanged"/>
-                <ListBox x:Name="listBoxEmergency" HorizontalAlignment="Left" Height="138" Margin="590,37,0,0" VerticalAlignment="Top" Width="122" SelectionChanged="listBoxEmergency_SelectionChanged"/>
-                <Label x:Name="policeListLabel" Content="Policja" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top"/>
-                <Label x:Name="fireListLabel" Content="Straż Pożarna" HorizontalAlignment="Left" Margin="294,14,0,0" VerticalAlignment="Top"/>
-                <Label x:Name="emergencyListLabel" Content="Pogotowie Ratunkowe" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top"/>
-                <TextBlock x:Name="policeDescTextBlock" HorizontalAlignment="Left" Margin="143,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="138" Width="134"/>
-                <TextBlock x:Name="fireDescTextBlock" HorizontalAlignment="Left" Margin="434,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="138" Width="134"/>
-                <TextBlock x:Name="emergencyDescTextBlock" HorizontalAlignment="Left" Margin="723,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="138" Width="134"/>
+        <GroupBox x:Name="groupBox1" 
+                  Header="Służby" 
+                  HorizontalAlignment="Stretch" 
+                  Margin="10,10,10,0" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Label x:Name="policeListLabel" 
+                           Content="Policja" 
+                           HorizontalAlignment="Left" 
+                           Margin="10,0,0,0" 
+                           VerticalAlignment="Top"/>
+                    <ListBox x:Name="listBoxPolice" 
+                             Grid.Column="0" 
+                             HorizontalAlignment="Stretch" 
+                             Height="140" Margin="10,0,0,0" 
+                             VerticalAlignment="Top" 
+                             SelectionChanged="listBoxPolice_SelectionChanged"/>
+                    <CheckBox x:Name="policeDisableCheckBox"
+                              Content="Nie potrzeba"
+                              Margin="10,5,0,5" 
+                              Checked="policeDisableCheckBox_Checked" 
+                              Unchecked="policeDisableCheckBox_Unchecked" />
+
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Label x:Name="policeDescLabel" 
+                           Content="Opis" 
+                           HorizontalAlignment="Left" 
+                           Margin="10,0,0,0" 
+                           VerticalAlignment="Top"/>
+                    <TextBlock x:Name="policeDescTextBlock" 
+                               Grid.Column="1" 
+                               HorizontalAlignment="Stretch" 
+                               Margin="10,0,0,0" 
+                               TextWrapping="Wrap" 
+                               VerticalAlignment="Top" 
+                               Height="140" />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <Label x:Name="fireListLabel" 
+                           Content="Straż Pożarna" 
+                           HorizontalAlignment="Left" 
+                           Margin="10,0,0,0" 
+                           VerticalAlignment="Top"/>
+                    <ListBox x:Name="listBoxFireBrigade" 
+                             Grid.Column="2" 
+                             HorizontalAlignment="Stretch" 
+                             Height="140" Margin="10,0,0,0" 
+                             VerticalAlignment="Top" 
+                             SelectionChanged="listBoxFireBrigade_SelectionChanged"/>
+                    <CheckBox x:Name="fireDisableCheckBox"
+                              Content="Nie potrzeba"
+                              Margin="10,5,0,5"
+                              Checked="fireDisableCheckBox_Checked" 
+                              Unchecked="fireDisableCheckBox_Unchecked"/>
+                </StackPanel>
+                <StackPanel Grid.Column="3">
+                    <Label x:Name="fireDescLabel" 
+                           Content="Opis" 
+                           HorizontalAlignment="Left" 
+                           Margin="10,0,0,0" 
+                           VerticalAlignment="Top"/>
+                    <TextBlock x:Name="fireDescTextBlock" 
+                               Grid.Column="3" 
+                               HorizontalAlignment="Stretch" 
+                               Margin="10,0,0,0" 
+                               TextWrapping="Wrap" 
+                               VerticalAlignment="Top" Height="140" />
+                </StackPanel>
+                <StackPanel Grid.Column="4">
+                    <Label x:Name="emergencyListLabel" 
+                           Content="Pogotowie Ratunkowe" 
+                           HorizontalAlignment="Left" 
+                           Margin="10,0,0,0" 
+                           VerticalAlignment="Top"/>
+                    <ListBox x:Name="listBoxEmergency" 
+                             Grid.Column="4" 
+                             HorizontalAlignment="Stretch" 
+                             Height="140" Margin="10,0,0,0" 
+                             VerticalAlignment="Top" 
+                             SelectionChanged="listBoxEmergency_SelectionChanged"/>
+                    <CheckBox x:Name="emergencyDisableCheckBox"
+                              Content="Nie potrzeba"
+                              Margin="10,5,0,5" 
+                              Checked="emergencyDisableCheckBox_Checked" 
+                              Unchecked="emergencyDisableCheckBox_Unchecked"/>
+                </StackPanel>
+                <StackPanel Grid.Column="5">
+                    <Label x:Name="emergencyDescLabel" 
+                           Content="Opis" 
+                           HorizontalAlignment="Left" 
+                           Margin="10,0,0,0" 
+                           VerticalAlignment="Top"/>
+                    <TextBlock x:Name="emergencyDescTextBlock" 
+                               Grid.Column="5" 
+                               HorizontalAlignment="Stretch" 
+                               Margin="10,0,0,0" 
+                               TextWrapping="Wrap" 
+                               VerticalAlignment="Top" 
+                               Height="140" />
+                </StackPanel>   
             </Grid>
         </GroupBox>
-    </Grid>
+        <Button x:Name="button" 
+                Content="Dispatch!" 
+                HorizontalAlignment="Stretch" 
+                Margin="10,10,10,10" 
+                Click="button_Click"/>
+    </StackPanel>
 </Window>
