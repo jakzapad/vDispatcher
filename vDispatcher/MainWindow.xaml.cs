@@ -90,7 +90,7 @@ namespace vDispatcher
             Random newIncTime = new Random();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             endTimer.Tick += endTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, newIncTime.Next(4, 5));
+            dispatcherTimer.Interval = new TimeSpan(0, 0, newIncTime.Next(10,10));
             endTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
             endTimer.Start();
@@ -188,6 +188,11 @@ namespace vDispatcher
                     {
                         integrityCheck = true;
                     }
+                    else
+                    {
+                        MessageBox.Show("Wybrales zly typ policji");
+                        integrityCheck = false;
+                    }
                 }
                 if (listBoxFireBrigade.SelectedIndex != -1)
                 {
@@ -197,6 +202,11 @@ namespace vDispatcher
                     {
                         integrityCheck = true;
                     }
+                    else
+                    {
+                        MessageBox.Show("Wybrales zly typ strazy");
+                        integrityCheck = false;
+                    }
                 }
                 if (listBoxEmergency.SelectedIndex != -1)
                 {
@@ -205,6 +215,11 @@ namespace vDispatcher
                         && emergencyDisableCheckBox.IsChecked == false )
                     {
                         integrityCheck = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wybrales zly typ pogotowia");
+                        integrityCheck = false;
                     }
                 }
                 if (integrityCheck == true)
